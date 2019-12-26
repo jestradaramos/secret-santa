@@ -1,7 +1,7 @@
 package repo
 import (
-	"errors"
-	"github.com/jinzhu/gorm"
+	// "errors"
+	// "github.com/jinzhu/gorm"
 	"secret-santa/domain"
 )
 

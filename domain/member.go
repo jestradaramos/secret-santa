@@ -10,4 +10,5 @@ type Member struct {
 	Name string
 	Email string
 	Spouse string
+	GroupID string `gorm:foreignkey`
 }

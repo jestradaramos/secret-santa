@@ -1,0 +1,68 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Secret Santa"
+basePath: "/v1"
+schemes:
+- "http"
+paths:
+  /group:
+    post:
+      tags:
+      - "groups"
+      summary: "Add a new group"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Group Object"
+        required: true
+        schema:
+          $ref: "#/definitions/Group"
+      responses:
+        405:
+          description: "Invalid input"
+  
+  /group/{id}:
+    get:
+      tags:
+        - "groups"
+      summary: "Gets a groups info"
+      parameters:
+      - name: id
+        in: path
+        description: Group Id
+        required: true
+        type: string
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: "#/definitions/Group"
+  
+  
+
+definitions:
+ 
+  Group:
+    type: "object"
+    required:
+    - "id"
+    - "deadline"
+    - "exchangeDate"
+    - "moneyLimit"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      deadline:
+        type: "string"
+      exchangeDate:
+        type: "string"
+        example: "doggie"
+      moneyLimit:
+        type: "number"
+      

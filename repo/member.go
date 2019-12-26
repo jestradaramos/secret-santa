@@ -1,7 +1,7 @@
 package repo
 import (
-	"errors"
-	"github.com/jinzhu/gorm"
+	// "errors"
+	// "github.com/jinzhu/gorm"
 	"secret-santa/domain"
 )
 
@@ -9,6 +9,7 @@ import (
 func (r *Repository) InitMemberTable() {
 	if !r.db.HasTable(&domain.Member{}) {
 		r.db.CreateTable(&domain.Member{})
+		r.db.Model(&domain.Member{}).AddForeignKey("group_id", "groups(id)", "RESTRICT", "RESTRICT")
 	}
 }
 
