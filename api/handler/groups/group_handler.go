@@ -22,7 +22,13 @@ func PostGroup(params groups.PostGroupParams, service services.GroupService) mid
 
 // GetGroupID ...
 func GetGroupID(params groups.GetGroupIDParams, service services.GroupService) middleware.Responder {
-	return &groups.GetGroupIDOK{}
+	g, err := service.GetGroupByID(params.ID)
+	if err != nil {
+		return &groups.GetGroupIDNotFound{}
+	}
+	return &groups.GetGroupIDOK{
+		Payload: domainGroupToModel(g),
+	}
 }
 
 func modelGroupToDomainGroup(model *models.Group) *domain.Group {
@@ -33,4 +39,14 @@ func modelGroupToDomainGroup(model *models.Group) *domain.Group {
 		ExchangeDate: *model.ExchangeDate,
 	}
 	return domainGroup
+}
+
+func domainGroupToModel(d *domain.Group) *models.Group {
+	modelGroup := &models.Group{
+		ID:           &d.ID,
+		MoneyLimit:   &d.MoneyLimit,
+		Deadline:     &d.Deadline,
+		ExchangeDate: &d.ExchangeDate,
+	}
+	return modelGroup
 }
