@@ -16,7 +16,7 @@ func NewMemberService(repo domain.Repo) MemberService {
 
 // AddMember adds Members
 func (s MemberService) AddMember(g *domain.Member) error {
-	id, err := s.repo.AddMember(g)
+	err := s.repo.AddMember(g)
 	if err != nil {
 		return err
 	}

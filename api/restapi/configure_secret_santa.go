@@ -13,6 +13,8 @@ import (
 	"secret-santa/api/restapi/operations"
 	"secret-santa/api/restapi/operations/groups"
 	"secret-santa/api/restapi/operations/members"
+	"secret-santa/domain"
+	"secret-santa/services"
 )
 
 //go:generate swagger generate server --target ../../api --name SecretSanta --spec ../swagger.yml
@@ -22,6 +24,10 @@ func configureFlags(api *operations.SecretSantaAPI) {
 }
 
 func configureAPI(api *operations.SecretSantaAPI) http.Handler {
+	return nil
+}
+
+func configureAPIWithDependencies(api *operations.SecretSantaAPI, r domain.Repo) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
 
@@ -34,6 +40,9 @@ func configureAPI(api *operations.SecretSantaAPI) http.Handler {
 	api.JSONConsumer = runtime.JSONConsumer()
 
 	api.JSONProducer = runtime.JSONProducer()
+
+	_ = services.NewGroupService(r)
+	_ = services.NewMemberService(r)
 
 	if api.GroupsGetGroupIDHandler == nil {
 		api.GroupsGetGroupIDHandler = groups.GetGroupIDHandlerFunc(func(params groups.GetGroupIDParams) middleware.Responder {

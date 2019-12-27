@@ -142,8 +142,7 @@ func init() {
           "type": "string"
         },
         "id": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "moneyLimit": {
           "type": "number"
@@ -294,8 +293,7 @@ func init() {
           "type": "string"
         },
         "id": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string"
         },
         "moneyLimit": {
           "type": "number"

@@ -104,8 +104,7 @@ definitions:
     - "moneyLimit"
     properties:
       id:
-        type: "integer"
-        format: "int64"
+        type: string
       deadline:
         type: "string"
       exchangeDate:

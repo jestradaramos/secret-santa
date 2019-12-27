@@ -27,7 +27,7 @@ type Group struct {
 
 	// id
 	// Required: true
-	ID *int64 `json:"id"`
+	ID *string `json:"id"`
 
 	// money limit
 	// Required: true
