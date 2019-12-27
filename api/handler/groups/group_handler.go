@@ -1,6 +1,7 @@
 package groups
 
 import (
+	"fmt"
 	"github.com/go-openapi/runtime/middleware"
 	"secret-santa/api/models"
 	"secret-santa/api/restapi/operations/groups"
@@ -12,10 +13,11 @@ import (
 
 // PostGroup ...
 func PostGroup(params groups.PostGroupParams, service services.GroupService) middleware.Responder {
+	fmt.Println("We are here")
 	group := modelGroupToDomainGroup(params.Body)
 	_, err := service.AddGroup(group)
 	if err != nil {
-		return &groups.GetGroupIDNotFound{}
+		return &groups.PostGroupMethodNotAllowed{}
 	}
 	return &groups.PostGroupOK{}
 }

@@ -2,7 +2,6 @@ package main
 
 import (
 	"secret-santa/app"
-	"fmt"
 )
 
 func main() {
@@ -10,5 +9,5 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Print(a)
+	a.Start()
 }

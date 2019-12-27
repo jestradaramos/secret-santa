@@ -26,6 +26,7 @@ import (
 	"golang.org/x/net/netutil"
 
 	"secret-santa/api/restapi/operations"
+	"secret-santa/domain"
 )
 
 const (
@@ -52,10 +53,12 @@ func NewServer(api *operations.SecretSantaAPI) *Server {
 	return s
 }
 
+// I EDIT HERE
+
 // ConfigureAPI configures the API and handlers.
-func (s *Server) ConfigureAPI() {
+func (s *Server) ConfigureAPI(r domain.Repo) {
 	if s.api != nil {
-		s.handler = configureAPI(s.api)
+		s.handler = ConfigureAPIWithDependencies(s.api, r)
 	}
 }
 

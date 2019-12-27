@@ -4,12 +4,15 @@ package restapi
 
 import (
 	"crypto/tls"
+	"fmt"
 	"net/http"
 
 	errors "github.com/go-openapi/errors"
 	runtime "github.com/go-openapi/runtime"
 	middleware "github.com/go-openapi/runtime/middleware"
 
+	gHandler "secret-santa/api/handler/groups"
+	mHandler "secret-santa/api/handler/members"
 	"secret-santa/api/restapi/operations"
 	"secret-santa/api/restapi/operations/groups"
 	"secret-santa/api/restapi/operations/members"
@@ -27,7 +30,8 @@ func configureAPI(api *operations.SecretSantaAPI) http.Handler {
 	return nil
 }
 
-func configureAPIWithDependencies(api *operations.SecretSantaAPI, r domain.Repo) http.Handler {
+// ConfigureAPIWithDependencies ...
+func ConfigureAPIWithDependencies(api *operations.SecretSantaAPI, r domain.Repo) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
 
@@ -41,24 +45,21 @@ func configureAPIWithDependencies(api *operations.SecretSantaAPI, r domain.Repo)
 
 	api.JSONProducer = runtime.JSONProducer()
 
-	_ = services.NewGroupService(r)
-	_ = services.NewMemberService(r)
+	gs := services.NewGroupService(r)
+	ms := services.NewMemberService(r)
 
-	if api.GroupsGetGroupIDHandler == nil {
-		api.GroupsGetGroupIDHandler = groups.GetGroupIDHandlerFunc(func(params groups.GetGroupIDParams) middleware.Responder {
-			return middleware.NotImplemented("operation groups.GetGroupID has not yet been implemented")
-		})
-	}
-	if api.GroupsPostGroupHandler == nil {
-		api.GroupsPostGroupHandler = groups.PostGroupHandlerFunc(func(params groups.PostGroupParams) middleware.Responder {
-			return middleware.NotImplemented("operation groups.PostGroup has not yet been implemented")
-		})
-	}
-	if api.MembersPostMemberHandler == nil {
-		api.MembersPostMemberHandler = members.PostMemberHandlerFunc(func(params members.PostMemberParams) middleware.Responder {
-			return middleware.NotImplemented("operation members.PostMember has not yet been implemented")
-		})
-	}
+	fmt.Println("Configured")
+	api.GroupsGetGroupIDHandler = groups.GetGroupIDHandlerFunc(func(params groups.GetGroupIDParams) middleware.Responder {
+		return gHandler.GetGroupID(params, gs)
+	})
+
+	api.GroupsPostGroupHandler = groups.PostGroupHandlerFunc(func(params groups.PostGroupParams) middleware.Responder {
+		return gHandler.PostGroup(params, gs)
+	})
+
+	api.MembersPostMemberHandler = members.PostMemberHandlerFunc(func(params members.PostMemberParams) middleware.Responder {
+		return mHandler.PostMember(params, ms)
+	})
 
 	api.ServerShutdown = func() {}
 
