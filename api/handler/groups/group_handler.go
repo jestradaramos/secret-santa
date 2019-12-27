@@ -9,7 +9,7 @@ import (
 	"secret-santa/services"
 )
 
-// TODO Fix correct responses
+// TODO prevent leaking
 
 // PostGroup ...
 func PostGroup(params groups.PostGroupParams, service services.GroupService) middleware.Responder {
