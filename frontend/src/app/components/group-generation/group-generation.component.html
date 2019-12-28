@@ -1,0 +1,22 @@
+<form class="group-form thing">
+    <mat-form-field class="field-width">
+        <input matInput placeholder="Group Name" name="gname">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="field-width">
+        <input matInput placeholder="Money Limit" name="money">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="field-width">
+        <input matInput [matDatepicker]="deadline" placeholder="Deadline">
+        <mat-datepicker-toggle matSuffix [for]="deadline"></mat-datepicker-toggle>
+        <mat-datepicker #deadline></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="field-width">
+        <input matInput [matDatepicker]="exchange" placeholder="Exchange Date">
+        <mat-datepicker-toggle matSuffix [for]="exchange"></mat-datepicker-toggle>
+        <mat-datepicker #exchange></mat-datepicker>
+    </mat-form-field>
+
+</form>
