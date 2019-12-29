@@ -1,24 +1,30 @@
 <h2>Merry Christmas!!</h2>
+<h3>Secret Santa Group Creation</h3>
 
-<form class="group-form thing">
+<form class="group-form thing" [formGroup]='groupForm'>
     <mat-form-field class="field-width">
-        <input matInput placeholder="Group Name" name="gname">
+        <input matInput placeholder="Group Name" name="gname" formControlName='gname'>
     </mat-form-field>
     <br>
     <mat-form-field class="field-width">
-        <input matInput placeholder="Money Limit" name="money">
+        <input matInput placeholder="Money Limit" name="money" formControlName='money'>
+        <span matPrefix>$&nbsp;</span>
+        <span matSuffix>.00</span>
     </mat-form-field>
     <br>
     <mat-form-field class="field-width">
-        <input matInput [matDatepicker]="deadline" placeholder="Deadline">
+        <input matInput [matDatepicker]="deadline" placeholder="Deadline" name='deadline' formControlName='deadline'>
         <mat-datepicker-toggle matSuffix [for]="deadline"></mat-datepicker-toggle>
         <mat-datepicker #deadline></mat-datepicker>
     </mat-form-field>
     <br>
     <mat-form-field class="field-width">
-        <input matInput [matDatepicker]="exchange" placeholder="Exchange Date">
+        <input matInput [matDatepicker]="exchange" placeholder="Exchange Date" name='exchange' formControlName='exchange'>
         <mat-datepicker-toggle matSuffix [for]="exchange"></mat-datepicker-toggle>
         <mat-datepicker #exchange></mat-datepicker>
     </mat-form-field>
 
+    
 </form>
+
+<button mat-button (click)="submit()">Click me!</button>

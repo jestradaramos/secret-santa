@@ -7,13 +7,17 @@ import { GroupGenerationComponent } from './components/group-generation/group-ge
 import { SnowfModule } from 'ngx-snowf';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input'
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MemberComponent } from './components/member/member.component';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GroupGenerationComponent
+    GroupGenerationComponent,
+    MemberComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +26,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule
   ],
   providers: [
